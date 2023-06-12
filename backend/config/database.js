@@ -6,8 +6,6 @@ const connectDatabase = () =>{
         useUnifiedTopology: true
    }).then(con =>{
     console.log(`MongoBD is connected to the host:${con.connection.host}`)
-   }).catch((error) =>{
-    console.log(error);
    })
 }
 
