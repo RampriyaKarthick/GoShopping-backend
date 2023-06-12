@@ -13,15 +13,24 @@ class APIFeatures{
         this .query.find({...keyword})
         return this
     }
-    filter() {
+    filter(){
         const queryStrCopy = { ...this.queryStr };
+  
+        //removing fields from query
         const removeFields = ['keyword', 'limit', 'page'];
-    
-        removeFields.forEach((field) => delete queryStrCopy[field]);
-    
-        this.query = this.query.find(queryStrCopy);
+        removeFields.forEach( field => delete queryStrCopy[field]);
+        
+        let queryStr = JSON.stringify(queryStrCopy);
+        queryStr =  queryStr.replace(/\b(gt|gte|lt|lte)/g, match => `$${match}`)
+
+        this.query.find(JSON.parse(queryStr));
+
         return this;
-      }
+    }
+      
+      
+      
+      
     }
 
  module.exports = APIFeatures
